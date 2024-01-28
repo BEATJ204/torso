@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ddf7xa1v0u77n"]
+
+[ext_resource type="FontFile" uid="uid://2ossdvjhxlj1" path="res://Materials/Fonts/zekton rg.otf" id="1_tb2yg"]
+[ext_resource type="StyleBox" uid="uid://c6fc5gm1ff2y2" path="res://Materials/new_style_box_flat.tres" id="1_uttxv"]
+
+[resource]
+default_font = ExtResource("1_tb2yg")
+default_font_size = 14
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = ExtResource("1_uttxv")
