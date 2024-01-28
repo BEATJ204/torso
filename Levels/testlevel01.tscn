@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://boo3upp1b4ixl"]
+
+[ext_resource type="PackedScene" uid="uid://bnoknw7it8fk5" path="res://Enviroment/WE_test.tscn" id="1_hq11o"]
+[ext_resource type="Material" uid="uid://b5dngvp5md54q" path="res://Materials/grid.tres" id="1_ouwb6"]
+[ext_resource type="PackedScene" uid="uid://bta8l7rkn6nj7" path="res://Controllers/player.tscn" id="3_tatx0"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kviht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds2n7"]
+size = Vector3(7.98962, 0.101227, 7.98053)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_hq11o")]
+camera_attributes = SubResource("CameraAttributesPractical_kviht")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(8, 0.1, 8)
+material = ExtResource("1_ouwb6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_ds2n7")
+
+[node name="Player" parent="." instance=ExtResource("3_tatx0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

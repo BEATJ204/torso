@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://3ubtpg7nv77"]
+
+[ext_resource type="PackedScene" uid="uid://bnoknw7it8fk5" path="res://Enviroment/WE_test.tscn" id="1_hc3dl"]
+[ext_resource type="Material" uid="uid://b5dngvp5md54q" path="res://Materials/grid.tres" id="2_7ahxo"]
+[ext_resource type="PackedScene" uid="uid://bta8l7rkn6nj7" path="res://Controllers/player.tscn" id="3_rc4xr"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_kviht"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds2n7"]
+size = Vector3(7.98962, 0.101227, 7.98053)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wguxx"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_hc3dl")]
+camera_attributes = SubResource("CameraAttributesPractical_kviht")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+size = Vector3(8, 0.1, 8)
+material = ExtResource("2_7ahxo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_ds2n7")
+
+[node name="Crouchable" type="StaticBody3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Crouchable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6.3)
+material = ExtResource("2_7ahxo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Crouchable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6.3)
+shape = SubResource("BoxShape3D_wguxx")
+
+[node name="Walkable" type="StaticBody3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Walkable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.6, 6.3)
+material = ExtResource("2_7ahxo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walkable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.6, 6.3)
+shape = SubResource("BoxShape3D_wguxx")
+
+[node name="Player" parent="." instance=ExtResource("3_rc4xr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
