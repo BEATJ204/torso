@@ -1,21 +1,27 @@
 class_name WalkingPlayerState
-extends State
+extends PlayerMovementState
 
-@export var animation : AnimationPlayer
-@export var top_anim_speed : float = 2.2
+@export var SPEED : float = 5.0
+@export var ACCCELERATION : float = 0.1
+@export var DECELRATION : float = 0.25
+@export var TOP_ANIM_SPEED : float = 2.2
 
 func enter() -> void:
-	animation.play("Walking",-1.0,1.0)
-	Global.player._speed = Global.player.speed_default
+	ANIMATION.play("Walking",-1.0,1.0)
 
 func update(delta):
-	if Global.player.velocity.length () == 0.0:
+	PLAYER.update_gravity(delta)
+	PLAYER.update_input(SPEED, ACCCELERATION, DECELRATION)
+	PLAYER.update_velocity()
+	
+	set_animation_speed(PLAYER.velocity.length())
+	if PLAYER.velocity.length () == 0.0:
 		transition.emit("IdlePlayerState")
 		
-func set_animation_speed(spd):
-	var alpha = remap(spd, 0.0, Global.player.speed_default, 0.0, 1.0)
-	animation.speed_scale = lerp (0.0, top_anim_speed, alpha)
-
-func _input(event) -> void:
-	if event.is_action_pressed("sprint") and Global.player.is_on_floor():
+	if Input.is_action_pressed("sprint") and PLAYER.is_on_floor():
 		transition.emit("SprintingPlayerState")
+		
+func set_animation_speed(spd):
+	var alpha = remap(spd, 0.0, SPEED, 0.0, 1.0)
+	ANIMATION.speed_scale = lerp (0.0, TOP_ANIM_SPEED, alpha)
+

@@ -1,11 +1,17 @@
 class_name IdlePlayerState
-extends State
+extends PlayerMovementState
 
-@export var animation : AnimationPlayer
+@export var SPEED : float = 5.0
+@export var ACCCELERATION : float = 0.1
+@export var DECELRATION : float = 0.25
 
 func enter() -> void:
-	animation.pause()
+	ANIMATION.pause()
 
 func update(delta):
-	if Global.player.velocity.length() > 0.0 and Global.player.is_on_floor():
+	PLAYER.update_gravity(delta)
+	PLAYER.update_input(SPEED, ACCCELERATION, DECELRATION)
+	PLAYER.update_velocity()
+	
+	if PLAYER.velocity.length() > 0.0 and PLAYER.is_on_floor():
 		transition.emit("WalkingPlayerState")

@@ -185,10 +185,9 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s64cb"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CROUCH_SHAPECAST")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crouch_shapecast")]
 script = ExtResource("1_c2frk")
-ANIMATIONPLAYER = NodePath("AnimationPlayer")
-CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+crouch_shapecast = NodePath("ShapeCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_caqvt")

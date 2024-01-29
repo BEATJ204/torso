@@ -185,10 +185,8 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s64cb"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CROUCH_SHAPECAST")]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_c2frk")
-ANIMATIONPLAYER = NodePath("AnimationPlayer")
-CROUCH_SHAPECAST = NodePath("ShapeCast3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_caqvt")
@@ -205,7 +203,6 @@ update_mode = 1
 enable_shadows = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_g5ip5")
 }
@@ -286,10 +283,12 @@ CURRENT_STATE = NodePath("IdlePlayerState")
 [node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("6_p56hc")
 
-[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("7_88xpc")
+animation = NodePath("../../AnimationPlayer")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("8_7wvcp")
+animation = NodePath("../../AnimationPlayer")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
