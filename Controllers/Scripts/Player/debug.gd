@@ -8,7 +8,7 @@ func _ready():
 		
 func _process(delta):
 	if visible:
-		frames_per_second = "%.2f" % (1.0/delta)
+		frames_per_second = "%.0f" % (1.0/delta)
 	Global.debug.add_property("FPS",frames_per_second, 0)
 
 func _input(event):

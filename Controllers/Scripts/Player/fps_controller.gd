@@ -4,14 +4,13 @@ extends CharacterBody3D
 @export var ANIMATIONPLAYER : AnimationPlayer
 @export var CROUCH_SHAPECAST : Node3D
 @export_range(0, 10, 0.1) var mouse_sens : float = 3.0
-@export_range(5, 10, 0.1) var crouch_speed : float = 7.0
 
 var minPitch = deg_to_rad(-90)
 var maxPitch = deg_to_rad(90)
 var speed : float  
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = 12.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -23,9 +22,9 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		rotation.y	-= event.relative.x / 1000 * mouse_sens
-		$Camera3D.rotation.x -= event.relative.y / 1000 * mouse_sens
+		%Camera3D.rotation.x -= event.relative.y / 1000 * mouse_sens
 		
-		$Camera3D.rotation.x = clamp($Camera3D.rotation.x, minPitch, maxPitch)
+		%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, minPitch, maxPitch)
 		
 		rotation.y = fmod(rotation.y, PI * 2)
 		

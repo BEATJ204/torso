@@ -12,7 +12,7 @@ config_version=5
 
 config/name="torso"
 config/description="fps "
-run/main_scene="res://Levels/testlevel01.tscn"
+run/main_scene="res://Levels/testlevel02.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://Textures/torsologo.png"
 config/icon="res://icon.svg"
