@@ -9,7 +9,7 @@ extends PlayerMovementState
 
 func enter() -> void:
 	PLAYER.velocity.y += JUMP_VELOCITY
-	ANIMATION.play("JumpStart")
+	#ANIMATION.play("JumpStart")
 	
 func update(delta):
 	PLAYER.update_gravity(delta)
@@ -17,9 +17,10 @@ func update(delta):
 	PLAYER.update_velocity()
 	
 	if PLAYER.is_on_floor():
-		ANIMATION.play("JumpEnd")
+		#ANIMATION.play("JumpEnd")
 		transition.emit("IdlePlayerState")
 	
 	if Input.is_action_pressed("crouch"):
 		transition.emit("CrouchingPlayerState")
+		
 		

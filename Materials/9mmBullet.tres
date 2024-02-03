@@ -1,0 +1,23 @@
+[gd_resource type="StandardMaterial3D" load_steps=8 format=3 uid="uid://cvqjmtay6nj54"]
+
+[ext_resource type="Texture2D" uid="uid://cxm0732wu76f" path="res://Assets/PT-9M 9mm Bullet_Albedo.png" id="1_2w8gr"]
+[ext_resource type="Texture2D" uid="uid://cbtsmfv6qdkkc" path="res://Assets/PT-9M 9mm Bullet_Gloss.png" id="2_3pa25"]
+[ext_resource type="Texture2D" uid="uid://gxco3xddi6hv" path="res://Assets/PT-9M 9mm Bullet_Mask.png" id="3_hr7vx"]
+[ext_resource type="Texture2D" uid="uid://dudjb8veiih1q" path="res://Assets/PT-9M 9mm Ammo_Normal.png" id="4_r1y8q"]
+[ext_resource type="Texture2D" uid="uid://s64v3fgu7r85" path="res://Assets/PT-9M 9mm Bullet_Metalness.png" id="5_a27v5"]
+[ext_resource type="Texture2D" uid="uid://8hy7lu5mccyq" path="res://Assets/PT-9M 9mm Bullet_Normal.png" id="6_8ilg2"]
+[ext_resource type="Texture2D" uid="uid://h52hrqh40f36" path="res://Assets/PT-9M 9mm Bullet_Roughness.png" id="7_8qj5e"]
+
+[resource]
+albedo_texture = ExtResource("1_2w8gr")
+metallic = 1.0
+metallic_texture = ExtResource("5_a27v5")
+roughness_texture = ExtResource("7_8qj5e")
+normal_enabled = true
+normal_texture = ExtResource("6_8ilg2")
+clearcoat_enabled = true
+clearcoat_texture = ExtResource("2_3pa25")
+detail_enabled = true
+detail_mask = ExtResource("3_hr7vx")
+detail_albedo = ExtResource("1_2w8gr")
+detail_normal = ExtResource("4_r1y8q")

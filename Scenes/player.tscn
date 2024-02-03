@@ -1,0 +1,155 @@
+[gd_scene load_steps=17 format=3 uid="uid://bta8l7rkn6nj7"]
+
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/fps_controller.gd" id="1_c2frk"]
+[ext_resource type="Script" path="res://Controllers/Scripts/reticle.gd" id="2_g1a6t"]
+[ext_resource type="PackedScene" uid="uid://62gcr3knisy" path="res://Scenes/view_model.tscn" id="2_tbk2y"]
+[ext_resource type="Theme" uid="uid://ddf7xa1v0u77n" path="res://Materials/uitheme.tres" id="3_xfw2m"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/debug.gd" id="4_xuq0y"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/state_machine.gd" id="5_cfj45"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/IdlePlayerState.gd" id="6_p56hc"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/WalkingPlayerState.gd" id="7_88xpc"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/SprintingPlayerState.gd" id="8_7wvcp"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/CrouchingPlayerState.gd" id="9_euyyb"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/JumpingPlayerState.gd" id="10_682yq"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/SprintJumpPlayerState.gd" id="11_e1wuu"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/FallingPlayerState.gd" id="12_8jbva"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_caqvt"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ty3uh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s64cb"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CROUCH_SHAPECAST")]
+script = ExtResource("1_c2frk")
+CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+unique_name_in_owner = true
+cull_mask = 1048573
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
+update_mode = 1
+enable_shadows = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CameraController/Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="CameraController/Camera3D/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="view_model_camera" parent="CameraController/Camera3D/SubViewportContainer/SubViewport" instance=ExtResource("2_tbk2y")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_caqvt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_ty3uh")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("SphereShape3D_s64cb")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_g1a6t")
+RETICLE_LINES = [NodePath("top"), NodePath("right"), NodePath("bottom"), NodePath("left")]
+PLAYER_CONTROLLER = NodePath("../..")
+RETICLE_DISTANCE = 2.5
+
+[node name="top" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(0, -4, 0, -11)
+width = 2.0
+
+[node name="right" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(4, 0, 11, 0)
+width = 2.0
+
+[node name="bottom" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(0, 4, 0, 11)
+width = 2.0
+
+[node name="left" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(-4, 0, -11, 0)
+width = 2.0
+
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("3_xfw2m")
+script = ExtResource("4_xuq0y")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("5_cfj45")
+CURRENT_STATE = NodePath("IdlePlayerState")
+
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("6_p56hc")
+
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_88xpc")
+
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_7wvcp")
+
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("9_euyyb")
+CROUCH_SPEED = 4.5
+
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("10_682yq")
+
+[node name="SprintJumpPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_e1wuu")
+
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_8jbva")

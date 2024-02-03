@@ -1,0 +1,283 @@
+[gd_scene load_steps=23 format=3 uid="uid://bta8l7rkn6nj7"]
+
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/fps_controller.gd" id="1_c2frk"]
+[ext_resource type="Script" path="res://Controllers/Scripts/reticle.gd" id="2_g1a6t"]
+[ext_resource type="Theme" uid="uid://ddf7xa1v0u77n" path="res://Materials/uitheme.tres" id="3_xfw2m"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/debug.gd" id="4_xuq0y"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/state_machine.gd" id="5_cfj45"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/IdlePlayerState.gd" id="6_p56hc"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/WalkingPlayerState.gd" id="7_88xpc"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/SprintingPlayerState.gd" id="8_7wvcp"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/CrouchingPlayerState.gd" id="9_euyyb"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/JumpingPlayerState.gd" id="10_682yq"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/SprintJumpPlayerState.gd" id="11_e1wuu"]
+[ext_resource type="Script" path="res://Controllers/Scripts/Player/FallingPlayerState.gd" id="12_8jbva"]
+[ext_resource type="Script" path="res://Controllers/Weapons_Manager.gd" id="13_5mp2i"]
+[ext_resource type="PackedScene" uid="uid://dxro5fi2tcjgn" path="res://Assets/USP.tscn" id="13_begtb"]
+[ext_resource type="Resource" uid="uid://7grkkf4wugeh" path="res://Resources/USP.tres" id="14_cx7pa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_caqvt"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ty3uh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s64cb"]
+
+[sub_resource type="Animation" id="Animation_4k735"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("USP:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("USP:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("USP:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, -0.607375)]
+}
+
+[sub_resource type="Animation" id="Animation_abrjd"]
+resource_name = "USP_Equip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("USP:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.259863, 0.36014, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.101906, 0.193536, -0.333122), Vector3(0.119, 0.226, -0.389), Vector3(0.119191, 0.320354, -0.550768)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("USP:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.259863, 0.360921, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("USP:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.259863, 0.36014, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(0, -1.5708, 0), Vector3(0, -1.5708, 0), Vector3(0, -1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1d84g"]
+resource_name = "USP_Unequip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("USP:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.299662, 0.384332),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.119191, 0.320354, -0.550768), Vector3(0.119191, 0.229927, -0.550768), Vector3(0.119191, 0.178742, -0.550768), Vector3(0.119191, 0.142111, -0.550768)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("USP:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.499436, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("USP:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.384332),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, -0.202458), Vector3(0, -1.5708, -0.607375)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0dyul"]
+_data = {
+"RESET": SubResource("Animation_4k735"),
+"USP_Equip": SubResource("Animation_abrjd"),
+"USP_Unequip": SubResource("Animation_1d84g")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CROUCH_SHAPECAST")]
+script = ExtResource("1_c2frk")
+ANIMATIONPLAYER = NodePath("")
+CROUCH_SHAPECAST = NodePath("ShapeCast3D")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+unique_name_in_owner = true
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D"]
+update_mode = 1
+enable_shadows = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_caqvt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ty3uh")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("SphereShape3D_s64cb")
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_g1a6t")
+RETICLE_LINES = [NodePath("top"), NodePath("right"), NodePath("bottom"), NodePath("left")]
+PLAYER_CONTROLLER = NodePath("../..")
+
+[node name="top" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(0, -4, 0, -11)
+width = 2.0
+
+[node name="right" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(4, 0, 11, 0)
+width = 2.0
+
+[node name="bottom" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(0, 4, 0, 11)
+width = 2.0
+
+[node name="left" type="Line2D" parent="UserInterface/Reticle"]
+modulate = Color(1, 1, 1, 0.478431)
+points = PackedVector2Array(-4, 0, -11, 0)
+width = 2.0
+
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("3_xfw2m")
+script = ExtResource("4_xuq0y")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("5_cfj45")
+CURRENT_STATE = NodePath("IdlePlayerState")
+
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("6_p56hc")
+
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("7_88xpc")
+
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("8_7wvcp")
+
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("9_euyyb")
+CROUCH_SPEED = 4.5
+
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("10_682yq")
+
+[node name="SprintJumpPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("11_e1wuu")
+
+[node name="FallingPlayerState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("12_8jbva")
+
+[node name="Weapons_Manager" type="Node3D" parent="."]
+script = ExtResource("13_5mp2i")
+_weapon_resources = Array[Resource("res://Controllers/Scripts/weapon_resource.gd")]([ExtResource("14_cx7pa")])
+Start_Weapons = Array[String](["USP"])
+
+[node name="FPS_Rig" type="Node3D" parent="Weapons_Manager"]
+
+[node name="USP" parent="Weapons_Manager/FPS_Rig" instance=ExtResource("13_begtb")]
+transform = Transform3D(-2.97255e-06, -2.06598e-06, -1, -0.570714, 0.821149, 0, 0.821149, 0.570714, -3.61999e-06, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Weapons_Manager/FPS_Rig"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_0dyul")
+}

@@ -9,11 +9,11 @@ extends PlayerMovementState
 @export_range(0.5, 1.0, 0.01) var JUMP_SPEED_MULTIPLIER : float = 1.1
 
 func enter() -> void:
-	ANIMATION.play("Sprinting",0.5,1.0)
+	#ANIMATION.play("Sprinting",0.5,1.0)
 	PLAYER.velocity.y += JUMP_VELOCITY
 	
-func exit() -> void:
-	ANIMATION.speed_scale = 1.0
+#func exit() -> void:
+#	ANIMATION.speed_scale = 1.0
 	
 func update(delta):
 	PLAYER.update_gravity(delta)
@@ -28,4 +28,4 @@ func update(delta):
 
 func set_animation_speed(spd):
 	var alpha = remap(spd, 0.0, SPEED, 0.0, 1.0)
-	ANIMATION.speed_scale = lerp (0.0, TOP_ANIM_SPEED, alpha)
+	#ANIMATION.speed_scale = lerp (0.0, TOP_ANIM_SPEED, alpha)

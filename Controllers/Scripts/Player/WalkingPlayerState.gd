@@ -7,15 +7,17 @@ extends PlayerMovementState
 @export var TOP_ANIM_SPEED : float = 2.2
 
 func enter() -> void:
-	if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
-		await ANIMATION.animation_finished
-		ANIMATION.play("Walking",-1.0,1.0)
-	else:
-		ANIMATION.play("Walking",-1.0,1.0)
+	#if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
+	#	await ANIMATION.animation_finished
+	#	ANIMATION.play("Walking",-1.0,1.0)
+	#else:
+	#	ANIMATION.play("Walking",-1.0,1.0)
+	pass
 	
 func exit() -> void:
-	ANIMATION.speed_scale = 1.0
-
+	#ANIMATION.speed_scale = 1.0
+	pass
+		
 func update(delta):
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED, ACCCELERATION, DECELRATION)
@@ -39,5 +41,5 @@ func update(delta):
 		
 func set_animation_speed(spd):
 	var alpha = remap(spd, 0.0, SPEED, 0.0, 1.0)
-	ANIMATION.speed_scale = lerp (0.0, TOP_ANIM_SPEED, alpha)
+	# ANIMATION.speed_scale = lerp (0.0, TOP_ANIM_SPEED, alpha)
 

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b7ftskw4d61fy"]
+
+[ext_resource type="Texture2D" uid="uid://c2h2khfbl08y4" path="res://Assets/PT-9M 9mm Bullet Decal_Albedo.png" id="1_dhyuw"]
+[ext_resource type="Texture2D" uid="uid://dva8ffbniew4b" path="res://Assets/PT-9M 9mm Bullet Decal_nrml.bmp" id="2_3kwj5"]
+
+[resource]
+albedo_texture = ExtResource("1_dhyuw")
+normal_enabled = true
+normal_texture = ExtResource("2_3kwj5")
